@@ -1,7 +1,8 @@
 import UserList from './reduser-user';
+import MovieList from './reducer-location';
 import {combineReducers} from 'redux';
 
 const reduserList = combineReducers({
-user : UserList
+Checkuser : UserList
 });
 export default reduserList;
