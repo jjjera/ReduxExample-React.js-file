@@ -1,22 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { selectedUser } from "../actions/index";
-import { bindActionCreators } from "redux";
 
 class UserList extends Component {
-  createListItems() {
-    return this.props.contact.map((contact, index) => {
-      return (
-        <li key={index} onClick={() => this.props.selectedUser(contact)}>
-          {contact.name} {contact.age}
-        </li>
-      );
-    });
-  }
+  selectedUsers = (contact) => {
+    console.log("selectedUsers is called!");
+    this.props.dispatch(selectedUser(contact));
+  };
+
   render() {
+    const CreateListItems = () => {
+      return this.props.contact.map((contact, index) => {
+        return (
+          <li key={index} onClick={() => this.selectedUsers(contact)}>
+            {contact.name} {contact.age}
+          </li>
+        );
+      });
+    };
     return (
       <div>
-        <ul>{this.createListItems()}</ul>
+        <ul>
+          <CreateListItems />
+        </ul>
       </div>
     );
   }
@@ -27,7 +33,5 @@ function mapStateToProps(state) {
     contact: state.Checkuser
   };
 }
-function matchDispatchProps(dispatch) {
-  return bindActionCreators({ selectedUser: selectedUser }, dispatch);
-}
-export default connect(mapStateToProps, matchDispatchProps)(UserList);
+
+export default connect(mapStateToProps)(UserList);
